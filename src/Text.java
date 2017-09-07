@@ -1,26 +1,26 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Text {
-    private static ArrayList<String> words = new ArrayList<>();
+    private static ArrayList<String> words = new ArrayList<>();// massiv slov
     public static void main(String[] args) {
 
-        TextMass("Entext.txt");
+        TextMass("Entext.txt");//chitaem file i ubiraem vse lishnee
 
-        Map<String, Integer> map = countWords(words); //запуск метода подсчета слов
+        Map<String, Integer> map = countWords(words);// poisk odinakovych slov i sortirovka po znachenii
 
-        for (Map.Entry<String, Integer> pair : map.entrySet()) //печатаем готовую карту
-        {
-            System.out.println(pair.getKey() + " " + pair.getValue());
-        }
+        Map<String, Integer> mapsort = new TreeMap<>(map);//sortirovka po klih
+
+        for (Map.Entry<String, Integer> pair : mapsort.entrySet())//print slova otsortirovann
+        { System.out.println(pair.getKey()); }
+        map.entrySet().forEach(System.out::println);//print karta otsortir slova=kol-vo
     }
 
     private static void TextMass(String file){
 
-        try {
+        try {                                           //chtu file
             Scanner sc = new Scanner(new File(file));
             while (sc.hasNext()){
                 words.add(sc.next());
@@ -30,43 +30,28 @@ public class Text {
             System.out.println("No found file.");
         }
 
-           //word.replaceAll("[^a-z^A-Z]", "");
-
+        //ochistka slova
         for (int i = 0; i < words.size(); i++) {
-           words.set(i, words.get(i).toLowerCase().replaceAll("\\p{Punct}",""));
-
-
-        }
+           words.set(i, words.get(i).toLowerCase().replaceAll("\\p{Punct}","").replaceAll("[0-9]","")); }
+        words.removeIf(String::isEmpty);  //remove pustie
 
 
     }
 
-    private static Map<String, Integer> countWords(ArrayList<String> list) //метод подсчета
+    private static Map<String, Integer> countWords(ArrayList<String> list)
     {
-        HashMap<String, Integer> result = new HashMap<String, Integer>(); //создаем карту результата
+        Map<String, Integer> result = new HashMap<>();
 
-        /*for (int i = 0; i < list.size() ; i++) //запускаем бег по массиву
-        {
-            String s1 = list.get(i); //берем значение массива
-            int count = 0; //ставим счетчик в 0
-            for (int j = 0; j <list.size(); j++) //бежим опять по массиву и считаем это же количество слов
-            {
-                String s2 = list.get(j);
-                if (s1.equals(s2)) count++; //если совпадает, то счетчик +1
-            }
-            result.put(s1, count); //готовый результат записываем в таблицу
-        }*/
         for (String s : list) {
-            /*if (!result.containsKey(s)) {
-                result.put(s, 1);
-            } else {
-                result.put(s, result.get(s) + 1);
-            }*/
-            result.put(s, result.containsKey(s) ? result.get(s) + 1 : 1);
+
+            result.put(s, result.containsKey(s) ? result.get(s) + 1 : 1);//prostovli kol-vo
         }
 
+        Map<String,Integer> resultsort = new LinkedHashMap<>();
 
-        return result;
+        result.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).forEach(e ->resultsort.put(e.getKey(),e.getValue()));//sortiruem po znacheniu.
+
+        return resultsort;
     }
 
 }
