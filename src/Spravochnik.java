@@ -8,21 +8,11 @@ public class Spravochnik {
         add("Sidorov2",79333336,79333337);
         add("Sidorov3",79333339);
         add("Sidorov2",79333336,79333337,79333331);
+        get("Sidorov3");
         get("Sidorov2");
-        get("Sidorov");
-
-        /*personMap.put(new Person("Petrov2"), Arrays.asList(new Tel(79000000), new Tel(79000001)));
-        personMap.put(new Person("Petrov3"), Arrays.asList(new Tel(79111111), new Tel(79111112)));
-        personMap.put(new Person("Petrov4"), Arrays.asList(new Tel(79222222), new Tel(79222223), new Tel(79222224)));*/
 
 
 
-        /*for(Person person : personMap.keySet()){
-            System.out.println(person.surname + " имеет");
-            for (Tel tel : personMap.get(person)){
-                System.out.println("  " + tel.number);
-            }
-        }*/
     }
 
 
@@ -57,18 +47,22 @@ public class Spravochnik {
 
     }
     private static void get(String name){
-        for (Person person : personMap.keySet()) {
-            if (name.equals(person.surname)) {
+
+        for (Person person:personMap.keySet()){
+            if (person.surname.equals(name)) {
+
+
                 System.out.println(person.surname + " имеет");
-                for (Tel tel : personMap.get(person)){
+                for (Tel tel : personMap.get(person)) {
                     System.out.println("  " + tel.number);
                 }
 
-            }else {
-                System.out.println("Нет такой фамилии в справочнике");
+
             }
 
 
+
         }
+
     }
 }
