@@ -1,7 +1,5 @@
 import java.io.*;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Text {
     private static ArrayList<String> words = new ArrayList<>();// massiv slov
