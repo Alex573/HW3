@@ -11,11 +11,7 @@ public class Spravochnik {
         get("Sidorov3");
         get("Sidorov2");
 
-
-
     }
-
-
 
     private static class Person{
         private String surname;
@@ -23,8 +19,6 @@ public class Spravochnik {
         private Person(String surname) {
             this.surname=surname;
         }
-
-
     }
     private static class Tel{
         private Integer number;
@@ -46,23 +40,15 @@ public class Spravochnik {
         personMap.put(new Person(surname),  Arrays.asList(new Tel(tel1)));
 
     }
-    private static void get(String name){
+    private static void get(String name) {
 
-        for (Person person:personMap.keySet()){
+        for (Person person : personMap.keySet()) {
             if (person.surname.equals(name)) {
-
-
                 System.out.println(person.surname + " имеет");
                 for (Tel tel : personMap.get(person)) {
                     System.out.println("  " + tel.number);
                 }
-
-
             }
-
-
-
         }
-
     }
 }
